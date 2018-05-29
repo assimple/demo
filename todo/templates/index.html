@@ -5,12 +5,12 @@
     <title>待办事项</title>
 </head>
 <body>
-    <ul>
-        <li>测试1</li>
-        <li>测试2</li>
-        <li>测试3</li>
-        <li>测试4</li>
-        <li>测试5</li>
-    </ul>
 </body>
+    <ul>
+    {% for value in data %}
+        <li>
+            {{ value }}
+        </li>
+    {% endfor %}
+    </ul>
 </html>
