@@ -5,12 +5,19 @@
     <title>待办事项</title>
 </head>
 <body>
-</body>
     <ul>
     {% for value in data %}
         <li>
-            {{ value }}
+            {{ value[1] }} <button onclick="del({{ value[0] }})">删除</button>
         </li>
     {% endfor %}
     </ul>
+</body>
+<script>
+    function del(index){
+        alert("test")
+        console.log("hello world",index)
+    }
+</script>
+
 </html>

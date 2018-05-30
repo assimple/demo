@@ -5,12 +5,13 @@ class TodoDB():
     def read_all(self):
         conn = sqlite3.connect("myDB.db")
         cursor = conn.cursor()
-        cursor = cursor.execute("select content from list")
+        cursor = cursor.execute("select id,content from list")
         data = cursor.fetchall()
         cursor.close()
         conn.commit()
         conn.close()
-        data = [d[0] for d in data]
+        # data = [d[0] for d in data]
+        print(data)
         return data
 
     def init_db(self):
@@ -22,7 +23,11 @@ class TodoDB():
         conn.commit()
         conn.close()
 
+    def delete_list(self,list_id):
+        print("delete；",list_id)
+
 
 if __name__ == "__main__":
     db = TodoDB()
     # db.init_db()
+    db.read_all()
