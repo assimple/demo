@@ -7,10 +7,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    db=TodoDB()
-    todo=db.read_all()
+    db = TodoDB()
+    todo = db.read_all()
     return render_template("index.html", data=todo)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     app.run(debug=True)
