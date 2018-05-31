@@ -8,15 +8,22 @@
     <ul>
     {% for value in data %}
         <li>
-            {{ value[1] }} <button onclick="del({{ value[0] }})">删除</button>
+            {{ value[1] }} <button onclick="deleteTodo({{ value[0] }})">删除</button>
         </li>
     {% endfor %}
     </ul>
 </body>
 <script>
-    function del(index){
+    function deleteTodo(index){
         alert("test")
         console.log("hello world",index)
+        fetch("http://127.0.0.1:5000/todo/"+index,{ method:"DELETE" })
+            .then(
+                function (response){
+                    console.log(response.text());
+                    return ;
+                }
+            )
     }
 </script>
 
