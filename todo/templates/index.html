@@ -15,18 +15,17 @@
 </body>
 <script>
     function deleteTodo(index){
-        alert("test")
-        console.log("hello world",index)
+        <!--alert("test")-->
+        console.log("id:",index)
         fetch("http://127.0.0.1:5000/todo/"+index,{ method:"DELETE" })
             .then(
                 function (response){
-                    console.log(response.text());
+                    console.log(response.json());
                     return ;
                 })
-            .then(function (response){
-                window.location.reload();
-            })
-            
+            <!--.then(function (response){-->
+                <!--window.location.reload();-->
+            <!--})-->
     }
 </script>
 

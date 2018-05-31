@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+import json
+
+from flask import Flask, render_template, jsonify
 
 from todo.db import TodoDB
 
@@ -13,12 +15,13 @@ def index():
     return render_template("index.html", data=todo)
 
 
-@app.route('/todo/<int:list_id>',methods=["DELETE"])
+@app.route('/todo/<int:list_id>', methods=["DELETE"])
 def delete(list_id):
     db = TodoDB()
     todo = db.delete_list(list_id)
+    result = db.read(list_id)
     db.close()
-    return "okey"
+    return jsonify({"existed": True}) if result else jsonify({"existed": False})
 
 
 if __name__ == "__main__":
