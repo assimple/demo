@@ -22,8 +22,11 @@
                 function (response){
                     console.log(response.text());
                     return ;
-                }
-            )
+                })
+            .then(function (response){
+                window.location.reload();
+            })
+            
     }
 </script>
 
