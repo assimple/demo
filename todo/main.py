@@ -1,5 +1,3 @@
-import json
-
 from flask import Flask, render_template, jsonify
 
 from todo.db import TodoDB

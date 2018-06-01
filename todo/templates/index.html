@@ -5,7 +5,8 @@
     <title>待办事项</title>
 </head>
 <body>
-    <ul>
+<button onclick="addTodo()">添加待办事项</button>
+<ul>
     {% for value in data %}
         <li>
             {{ value[1] }} <button onclick="deleteTodo({{ value[0] }})">删除</button>
@@ -15,17 +16,21 @@
 </body>
 <script>
     function deleteTodo(index){
-        <!--alert("test")-->
+        alert("确定删除？")
         console.log("id:",index)
         fetch("http://127.0.0.1:5000/todo/"+index,{ method:"DELETE" })
-            .then(
-                function (response){
-                    console.log(response.json());
-                    return ;
-                })
-            <!--.then(function (response){-->
-                <!--window.location.reload();-->
-            <!--})-->
+            <!--.then(-->
+                <!--function (response){-->
+                    <!--console.log(response.json());-->
+                    <!--return ;-->
+                <!--})-->
+            .then(function (response){
+                window.location.reload();
+            })
+    }
+    function addTodo(index){
+        
+        console.log("kkkkkkkk");
     }
 </script>
 
