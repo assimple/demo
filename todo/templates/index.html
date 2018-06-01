@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <title>待办事项</title>
 </head>
+
 <body>
-<button onclick="addTodo()">添加待办事项</button>
+<button onclick="showDialog()">添加待办事项</button>
+<dialog id="newTodoItem">
+    <p>one and all</p>
+    <button onclick="hideDialog()">取消</button>
+    <button>确定</button>
+</dialog>
+
 <ul>
     {% for value in data %}
         <li>
@@ -28,9 +35,11 @@
                 window.location.reload();
             })
     }
-    function addTodo(index){
-        
-        console.log("kkkkkkkk");
+    function showDialog(index){
+        document.getElementById('newTodoItem').showModal();
+    }
+    function hideDialog(index){
+        document.getElementById('newTodoItem').close();
     }
 </script>
 

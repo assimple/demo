@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 
 from todo.db import TodoDB
 
@@ -20,6 +20,15 @@ def delete(list_id):
     result = db.read(list_id)
     db.close()
     return jsonify({"existed": True}) if result else jsonify({"existed": False})
+
+
+@app.route('/todo', methods=["POST"])
+def add():
+    data=request.get_json()
+    db = TodoDB()
+    todo = db.create(data['text'])
+    db.close()
+    return "okey"
 
 
 if __name__ == "__main__":
