@@ -7,6 +7,7 @@
 
 <body>
 <button onclick="showDialog()">添加待办事项</button>
+<input type="text" placeholder="请输入关键字"><input type="button" value="搜索" onclick="selectTodo()">
 <dialog id="newTodoItem">
     <textarea id="todoText"></textarea>
     <button onclick="hideDialog()">取消</button>
@@ -14,26 +15,35 @@
 </dialog>
 <ul>
     {% for value in data %}
+        {% if value[2] == 'done' %}
         <li>
-            {{ value[1] }} <button onclick="deleteTodo({{ value[0] }})">删除</button>
+            <!--<input type="checkbox" name="check" id="checkbox" onclick="checkboxChange(this)">-->
+            <del>
+                <span onclick="updateStatus({{ value[0]}})">{{ value[1] }}</span>
+            </del>
+            <button onclick="deleteTodo({{ value[0] }})">删除</button>
+        {% else %}
         </li>
+        <li>
+            <span onclick="updateStatus({{ value[0]}})">{{ value[1] }}</span>
+            <button onclick="deleteTodo({{ value[0] }})">删除</button>
+        </li>
+        {% endif %}
     {% endfor %}
     </ul>
 </body>
 <script>
+    <!--删除-->
     function deleteTodo(index){
         alert("确定删除？")
         console.log("id:",index)
         fetch("http://127.0.0.1:5000/todo/"+index,{ method:"DELETE" })
-            <!--.then(-->
-                <!--function (response){-->
-                    <!--console.log(response.json());-->
-                    <!--return ;-->
-                <!--})-->
             .then(function (response){
                 window.location.reload();
             })
     }
+
+    <!--添加事项的模态框-->
     function showDialog(index){
         document.getElementById('newTodoItem').showModal();
     }
@@ -41,6 +51,7 @@
         document.getElementById('newTodoItem').close();
     }
 
+    <!--添加事项-->
     function addTodo(){
         var text=document.getElementById('todoText').value;
         fetch('http://127.0.0.1:5000/todo',{
@@ -50,6 +61,34 @@
         })
         document.getElementById('newTodoItem').close();
         window.location.reload();
+    }
+
+    <!--搜索框 还没实现-->
+    function selectTodo(index){
+        console.log("content:",index)
+        fetch("http://127.0.0.1:5000/todo/"+index,{ method:"GET" })
+            <!--.then(function (response){-->
+                <!--window.location.reload();-->
+            <!--})-->
+    }
+
+    <!--复选框  还没实现-->
+    function checkboxChange(obj) {
+        var groupCheckbox=document.getElementById('checkbox');
+        if (obj.checked == true){
+            alert("确定已完成了吗？");
+            b = true;
+            for (var i = 0; i < groupCheckbox.length; i++) {
+                if (groupCheckbox[i].checked == true)
+                    b = false;
+            }
+        }
+    }
+    <!--改变状态-->
+    function updateStatus(index){
+        console.log("index:",index);
+        fetch("http://127.0.0.1:5000/todo/"+index,{ method:"PUT" })
+               window.location.reload();
     }
 </script>
 

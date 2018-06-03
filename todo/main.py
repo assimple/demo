@@ -9,6 +9,7 @@ app = Flask(__name__)
 def index():
     db = TodoDB()
     todo = db.read_all()
+    print(todo)
     db.close()
     return render_template("index.html", data=todo)
 
@@ -27,6 +28,28 @@ def add():
     data=request.get_json()
     db = TodoDB()
     todo = db.create(data['text'])
+    db.close()
+    return "okey"
+
+
+@app.route('/todo/<int:list_id>', methods=["GET"])
+def select(list_id):
+    db = TodoDB()
+    todo = db.select_list(list_id)
+    print(todo)
+    db.close()
+    return jsonify({"existed": True}) if todo else jsonify({"existed": False})
+
+
+@app.route('/todo/<int:list_id>', methods=["PUT"])
+# 翻转状态 现在只有doing done
+def flip_status(list_id):
+    db = TodoDB()
+    todo = db.read(list_id)
+    if todo:
+        status = todo[2]
+        status = "done" if status == "doing" else "doing"
+        db.update_status(list_id, status)
     db.close()
     return "okey"
 
