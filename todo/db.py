@@ -54,15 +54,15 @@ class TodoDB():
         cursor.close()
         return data
 
-    def update_status(self,list_id, status):
+    def update_status(self, list_id, status):
         cursor = self.cursor()
         cursor = cursor.execute("update list set status = ? where id=?", (status, list_id))
         self.commit()
-        data=cursor.fetchone()
+        data = cursor.fetchone()
         cursor.close()
         return data
 
-    def create(self,text):
+    def create(self, text):
         cursor = self.cursor()
         cursor = cursor.execute("insert into list(content,status) values(?,\'doing\')", (text,))
         cursor.close()

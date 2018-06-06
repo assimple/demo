@@ -9,7 +9,6 @@ app = Flask(__name__)
 def index():
     db = TodoDB()
     todo = db.read_all()
-    print(todo)
     db.close()
     return render_template("index.html", data=todo)
 
@@ -25,7 +24,7 @@ def delete(list_id):
 
 @app.route('/todo', methods=["POST"])
 def add():
-    data=request.get_json()
+    data = request.get_json()
     db = TodoDB()
     todo = db.create(data['text'])
     db.close()
@@ -52,6 +51,11 @@ def flip_status(list_id):
         db.update_status(list_id, status)
     db.close()
     return "okey"
+
+
+@app.route('/123')
+def base():
+    return render_template("base.html")
 
 
 if __name__ == "__main__":
